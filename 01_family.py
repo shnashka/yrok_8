@@ -83,25 +83,23 @@ class Man:
                 self.live = False
 
 
-class Husband:
+class Husband(Man):
 
-    def __init__(self):
-        pass
+    def __init__(self, name, house):
+        super().__init__(name=name, house=house)
 
     def __str__(self):
         return super().__str__()
 
-    def act(self):
-        pass
-
-    def eat(self):
-        pass
-
     def work(self):
-        pass
+        self.house.money += 150
+        self.fullness -= 10
+        cprint('{} работать'.format(self.name), color='green')
 
     def gaming(self):
-        pass
+        self.happiness += 20
+        self.fullness -= 10
+        cprint('{} дотка '.format(self.name), color='green')
 
 
 class Wife:
