@@ -3,6 +3,7 @@
 from termcolor import cprint
 from random import randint
 
+
 ######################################################## Часть первая
 #
 # Создать модель жизни небольшой семьи.
@@ -50,10 +51,36 @@ class House:
         self.dirt = 0
 
     def __str__(self):
-        return f'Денег в доме - {self.money}, еда в доме - {self.human_food}, степень загрезнености  - {self.dirt}'
+        return f'Денег в доме - {self.money}, еда в доме - {self.food}, степень загрезнености  - {self.dirt}'
 
     def more_dirt(self):
         self.dirt += 5
+
+
+class Man:
+    def __init__(self, name, house):
+        self.name = name
+        self.house = house
+        self.fullness = 30
+        self.happiness = 100
+
+    def __str__(self):
+        return '{}, сытость- {} счастье- {}'.format(self.name, self.fullness, self.happiness)
+
+    def eat(self):
+        if self.house.food >= 30:
+            self.house.food -= 30
+            self.fullness += 30
+            cprint('{} принял(а) пищю'.format(self.name), color='green')
+
+    def act(self):
+        if self.live:
+            if self.fullness <= 0:
+                cprint(f'{self.name} потрачено', color='red')
+                self.live = False
+            elif self.happiness <= 10:
+                cprint(f'{self.name} потрачено', color='red')
+                self.live = False
 
 
 class Husband:
@@ -112,6 +139,7 @@ for day in range(365):
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
     cprint(home, color='cyan')
+
 
 # TODO после реализации первой части - отдать на проверку учителю
 
@@ -214,7 +242,6 @@ for day in range(365):
     cprint(kolya, color='cyan')
     cprint(murzik, color='cyan')
 
-
 # Усложненное задание (делать по желанию)
 #
 # Сделать из семьи любителей котов - пусть котов будет 3, или даже 5-10.
@@ -236,4 +263,3 @@ for day in range(365):
 #       for salary in range(50, 401, 50):
 #           max_cats = life.experiment(salary)
 #           print(f'При зарплате {salary} максимально можно прокормить {max_cats} котов')
-
