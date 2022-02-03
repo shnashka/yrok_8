@@ -102,28 +102,33 @@ class Husband(Man):
         cprint('{} дотка '.format(self.name), color='green')
 
 
-class Wife:
+class Wife(Man):
 
-    def __init__(self):
-        pass
+    def __init__(self, name, house):
+        super().__init__(name=name, house=house)
 
     def __str__(self):
         return super().__str__()
 
-    def act(self):
-        pass
-
-    def eat(self):
-        pass
-
     def shopping(self):
-        pass
+        if self.house.money >= 50:
+            self.house.money -= 50
+            self.house.food += 50
+            self.fullness -= 10
+            cprint('{} купила еды'.format(self.name), color='green')
 
     def buy_fur_coat(self):
-        pass
+        if self.house.money >= 350:
+            self.house.money -= 350
+            self.happiness += 60
+            self.fullness -= 10
+            cprint('{} купила шубу'.format(self.name), color='green')
 
     def clean_house(self):
-        pass
+        if self.house.mess >= 100:
+            self.house.mess -= 100
+            self.fullness -= 10
+            cprint('{} убрала дом'.format(self.name), color='green')
 
 
 home = House()
