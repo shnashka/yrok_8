@@ -73,15 +73,6 @@ class Man:
             self.fullness += 30
             cprint('{} принял(а) пищю'.format(self.name), color='green')
 
-    def act(self):
-        if self.live:
-            if self.fullness <= 0:
-                cprint(f'{self.name} потрачено', color='red')
-                self.live = False
-            elif self.happiness <= 10:
-                cprint(f'{self.name} потрачено', color='red')
-                self.live = False
-
 
 class Husband(Man):
 
@@ -90,6 +81,25 @@ class Husband(Man):
 
     def __str__(self):
         return super().__str__()
+
+    def act(self):
+        i = randint(1, 5)
+        if self.fullness <= 30:
+            self.eat()
+
+        if self.house.mess >= 100:
+            self.happiness -= 10
+        if self.happiness <= 0:
+            cprint(f'{self.name} потрачено', color='red')
+        if self.fullness <= 0:
+            cprint(f'{self.name} потрачено', color='red')
+
+        elif self.house.money <= 150:
+            self.work()
+        elif i == 1:
+            self.work()
+        else:
+            self.gaming()
 
     def work(self):
         self.house.money += 150
@@ -109,6 +119,28 @@ class Wife(Man):
 
     def __str__(self):
         return super().__str__()
+
+    def act(self):
+        i = randint(1, 6)
+        if self.fullness <= 30:
+            self.eat()
+        if self.house.mess >= 100:
+            self.happiness -= 10
+        if self.happiness <= 0:
+            cprint('{} потрачено'.format(self.name), color='red')
+        if self.fullness <= 0:
+            cprint('{} потрачено'.format(self.name), color='red')
+
+        elif self.house.food <= 50:
+            self.shopping()
+        elif self.house.mess >= 120:
+            self.clean_house()
+        elif i == 1:
+            self.buy_fur_coat()
+        elif i == 2:
+            self.clean_house()
+        elif i == 3:
+            self.shopping()
 
     def shopping(self):
         if self.house.money >= 50:
@@ -131,17 +163,25 @@ class Wife(Man):
             cprint('{} убрала дом'.format(self.name), color='green')
 
 
+
+
 home = House()
-serge = Husband(name='Сережа')
-masha = Wife(name='Маша')
+serge = Husband(name='Сережа', house=home)
+masha = Wife(name='Маша', house=home)
+# kolya = Child(name='Коля', house=home)
+# murzik = Cat(name='Мурзик', house=home)
 
 for day in range(365):
     cprint('================== День {} =================='.format(day), color='red')
     serge.act()
     masha.act()
-    cprint(serge, color='cyan')
-    cprint(masha, color='cyan')
-    cprint(home, color='cyan')
+    # kolya.act()
+    # murzik.act()
+    cprint(serge, color='white')
+    cprint(masha, color='white')
+    # cprint(kolya, color='cyan')
+    # cprint(murzik, color='white')
+    cprint(home, color='grey')
 
 
 # TODO после реализации первой части - отдать на проверку учителю
